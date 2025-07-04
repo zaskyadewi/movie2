@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@700&display=swap');
+
+/* --- Reset & Global Styles --- */
+:root {
+  --bg-color: #FBF5E6;
+  --accent-color: #C991A9;
+  --text-color: #000000;
+  --button-color: #000000;
+  --button-text-color: #FBF5E6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.hidden { display: none !important; }
+
+/* --- Header & Navigasi --- */
+header {
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  position: sticky; top: 0; z-index: 1000;
+}
+
+#logo {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.9rem;
+  font-weight: normal;
+  color: var(--text-color);
+}
+
+.nav-left { display: flex; align-items: center; gap: 20px; }
+
+#city-select, .user-auth-nav-item {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 2px solid var(--accent-color);
+  background-color: transparent;
+  color: var(--accent-color);
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.user-auth-nav-item:hover, #city-select:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+.user-auth-nav-item:active {
+    transform: scale(0.95);
+    background-color: #b07c91;
+    color: white !important;
+}
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.user-profile-name { color: var(--accent-color); font-weight: bold; padding: 8px 0;}
+
+/* --- Hero Section Promosi --- */
+#hero-section {
+    position: relative; width: 100%; height: 85vh;
+    overflow: hidden; background-color: #111;
+}
+.hero-slider {
+    width: 100%; height: 100%; display: flex;
+    transition: transform 0.7s ease-in-out;
+}
+.hero-slide {
+    min-width: 100%; height: 100%; position: relative;
+    background-size: cover; background-position: center;
+    display: flex; align-items: center; padding: 0 6%;
+}
+.hero-slide::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.7) 25%, rgba(0,0,0,0) 75%);
+}
+.hero-content {
+    position: relative; z-index: 2; color: white; max-width: 45%;
+}
+.hero-content h2 {
+    font-size: 3.5rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    margin: 0 0 10px 0; line-height: 1.1;
+}
+.hero-content p {
+    font-family: sans-serif; font-size: 1rem; line-height: 1.6;
+    margin-bottom: 25px; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.hero-buttons .btn {
+    padding: 12px 28px; margin-right: 15px; border: none;
+    border-radius: 8px; font-family: 'Poppins', sans-serif;
+    font-weight: bold; font-size: 1rem; cursor: pointer;
+    transition: all 0.3s ease;
+}
+.hero-buttons .book-now { background-color: var(--accent-color); color: white; }
+.hero-buttons .book-now:hover { background-color: #b07c91; }
+.hero-buttons .watch-trailer { background-color: transparent; color: white; border: 2px solid white; }
+.hero-buttons .watch-trailer:hover { background-color: white; color: black; }
+.hero-nav {
+    position: absolute; top: 50%; width: 100%; display: flex;
+    justify-content: space-between; transform: translateY(-50%);
+    padding: 0 20px; z-index: 3; pointer-events: none;
+}
+.hero-nav-btn {
+    pointer-events: all; background-color: rgba(0,0,0,0.3); color: white;
+    border: none; font-size: 2rem; cursor: pointer;
+    width: 50px; height: 50px; border-radius: 50%;
+}
+.hero-dots {
+    position: absolute; bottom: 20px; left: 50%;
+    transform: translateX(-50%); display: flex; gap: 10px; z-index: 3;
+}
+.hero-dot {
+    width: 12px; height: 12px; background-color: rgba(255,255,255,0.5);
+    border-radius: 50%; cursor: pointer; transition: background-color 0.3s;
+}
+.hero-dot.active { background-color: white; }
+
+/* --- Halaman Utama --- */
+.main-headline {
+    text-align: center; font-size: 2.5rem; color: var(--text-color);
+    margin: 60px 0 20px 0; letter-spacing: 0.05em; /* Efek 5% */
+}
+#movie-gallery-page, #upcoming-detail-page, #booking-page, #payment-page, #confirmation-page { padding: 0 40px 20px 40px; }
+
+.category-title {
+  color: var(--text-color); font-size: 1.6rem; margin: 40px 0 20px 0;
+  border-bottom: 2px solid var(--text-color); padding-bottom: 10px;
+  font-weight: bold; letter-spacing: 0.09em; /* Efek 9% */
+}
+
+.movie-carousel-container { position: relative; }
+.movies-grid {
+  display: flex; gap: 25px; overflow-x: auto;
+  scroll-behavior: smooth; padding: 10px 0 20px 0;
+  -ms-overflow-style: none; scrollbar-width: none;
+}
+.movies-grid::-webkit-scrollbar { display: none; }
+
+.carousel-nav-btn {
+    position: absolute; top: 40%; transform: translateY(-50%);
+    background-color: rgba(251, 245, 230, 0.9); border: 1px solid #ddd;
+    border-radius: 50%; width: 45px; height: 45px;
+    font-size: 24px; cursor: pointer; z-index: 10;
+}
+.carousel-nav-btn.prev { left: -20px; }
+.carousel-nav-btn.next { right: -20px; }
+
+.movie-card {
+  min-width: 210px; width: 210px;
+  background: transparent; border: none; box-shadow: none;
+  display: flex; flex-direction: column;
+}
+.movie-poster {
+  width: 100%; padding-top: 140%; background-size: cover;
+  background-position: center; border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+.movie-info { padding: 15px 5px; flex-grow: 1; display: flex; flex-direction: column; }
+.movie-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
+
+.book-now-btn, .upcoming-details-btn {
+    background-color: var(--button-color); color: var(--button-text-color);
+    border: none; padding: 12px; text-align: center; font-weight: bold;
+    cursor: pointer; border-radius: 8px; width: 100%; margin-top: auto;
+    transition: background-color 0.3s; letter-spacing: 0.03em;
+}
+.upcoming-details-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+
+/* --- Halaman Detail (Upcoming & Booking) --- */
+.back-button {
+    display: inline-block; background: none; border: none; font-size: 1rem;
+    font-weight: bold; cursor: pointer; margin-bottom: 20px;
+    color: #888;
+}
+.detail-container { max-width: 1100px; margin: 20px auto; }
+.detail-header { display: flex; gap: 40px; align-items: flex-start; }
+.detail-movie-poster {
+    width: 300px; min-width: 300px; height: 450px;
+    background-size: cover; background-position: center;
+    border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.detail-info h2 { margin: 0 0 15px; font-size: 2.5rem; }
+#booking-movie-synopsis, #upcoming-movie-synopsis {
+    white-space: pre-wrap; font-family: sans-serif;
+    font-size: 1rem; line-height: 1.7; color: #333;
+}
+.seat {
+  padding: 5px 10px;
+  margin: 3px;
+  background: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.seat.selected {
+  background: #ffc7c7;
+}
+.seat.booked {
+  background: #aaa;
+  cursor: not-allowed;
+}
+.section {
+  margin: 20px 0;
+}
+.summary-box {
+  background: #e2e2e2;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.detail-info p strong { font-weight: bold; }
+.booking-details label { font-weight: bold; display: block; margin: 20px 0 8px; }
+.options-container { display: flex; gap: 12px; flex-wrap: wrap; }
+.showtime-option-btn { padding: 10px 18px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 8px; cursor: pointer; }
+.showtime-option-btn.selected, .seat.selected { background-color: var(--accent-color); color: white; border-color: var(--accent-color); }
+#seat-layout-container { margin: 20px 0; padding: 15px; border: 1px solid #eee; border-radius: 8px; }
+.screen-info { background-color: #333; color: white; padding: 8px; text-align: center; margin-bottom: 15px; }
+#seat-selection-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; max-width: 500px; margin: 0 auto; }
+.seat { width: 35px; height: 35px; background-color: #cceeff; border: 1px solid #99ccdd; text-align: center; line-height: 35px; border-radius: 6px; cursor: pointer; }
+.seat.booked { background-color: #e0e0e0; color: #777; cursor: not-allowed; }
+#booking-summary { margin-top: 30px; padding: 20px; background-color: #e0e0e0; border-radius: 8px; }
+#booking-summary h3 { margin-top: 0; }
+.action-button { background-color: var(--button-color); color: var(--button-text-color); border: none; padding: 12px 25px; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; display: block; margin: 25px auto 10px auto;}
+.action-button:disabled { background-color: #ccc; cursor: not-allowed; }
+
+/* --- Modal --- */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 2000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+.modal-content { background-color: var(--bg-color); padding: 25px 35px; border-radius: 12px; width: 90%; max-width: 450px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); position: relative; }
+.close-modal-btn { color: #888; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
+#auth-content-container h2 { color: var(--accent-color); text-align: center; margin-bottom: 25px; }
+#auth-content-container form label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--accent-color); }
+#auth-content-container form input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+#auth-content-container form input:focus { border-color: var(--accent-color); outline: none; box-shadow: 0 0 5px rgba(201, 145, 169, 0.5); }
+.modal-submit-btn { background-color: var(--accent-color); color: white; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px; }
+.modal-switch { text-align: center; margin-top: 20px; font-size: 0.9rem; }
+.modal-switch a { color: var(--accent-color); font-weight: bold; }
+.error-message { color: red; font-size: 0.85rem; margin-top: -10px; margin-bottom: 10px; text-align: center; }
+.trailer-modal-content { background-color: #000; padding: 10px; width: 90%; max-width: 900px; }
+.video-container { position: relative; padding-bottom: 56.25%; height: 0; }
+.video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.trailer-modal-content .close-modal-btn { top: 0; right: -40px; color: white; font-size: 30px; }

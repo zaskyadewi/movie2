@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movieday - Booking Tiket Bioskop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+    <header>
+        <div class="nav-left">
+            <div id="logo">Movieday</div>
+            <select id="city-select" name="City"></select>
+        </div>
+        <nav class="nav-right" id="user-auth-nav"></nav>
+    </header>
+
+    <main id="main-content">
+        <section id="hero-section">
+            <div class="hero-slider"></div>
+            <div class="hero-nav">
+                <button class="hero-nav-btn" id="hero-prev-btn">‹</button>
+                <button class="hero-nav-btn" id="hero-next-btn">›</button>
+            </div>
+            <div class="hero-dots"></div>
+        </section>
+
+        <h1 class="main-headline">Make your day</h1>
+
+        <section id="movie-gallery-page">
+            <section>
+                <h2 class="category-title">Now Showing</h2>
+                <div class="movie-carousel-container">
+                    <button class="carousel-nav-btn prev">‹</button>
+                    <div class="movies-grid" id="now-showing-grid"></div>
+                    <button class="carousel-nav-btn next">›</button>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="category-title">Upcoming</h2>
+                <div class="movie-carousel-container">
+                    <button class="carousel-nav-btn prev">‹</button>
+                    <div class="movies-grid" id="upcoming-grid"></div>
+                    <button class="carousel-nav-btn next">›</button>
+                </div>
+            </section>
+        </section>
+
+        <section id="upcoming-detail-page" class="hidden">
+            <button class="back-button" data-target="movie-gallery-page">← Kembali ke Daftar Film</button>
+            <div class="detail-container">
+                <div class="detail-header">
+                    <div id="upcoming-movie-poster-img" class="detail-movie-poster"></div>
+                    <div class="detail-info">
+                        <h2 id="upcoming-movie-title">Judul Film</h2>
+                        <p id="upcoming-movie-synopsis">Sinopsis film akan tampil di sini.</p>
+                        <p><strong>Segera Tayang!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="booking-page" class="hidden">
+            <button class="back-button" data-target="movie-gallery-page">← Kembali ke Daftar Film</button>
+            <div class="detail-container">
+                <div class="detail-header">
+                    <div id="booking-movie-poster-img" class="detail-movie-poster"></div>
+                    <div class="detail-info">
+                        <h2 id="booking-movie-title">Judul Film</h2>
+                        <p id="booking-movie-synopsis">Sinopsis film akan tampil di sini.</p>
+                        <p><strong>Harga Tiket:</strong> Rp <span id="booking-movie-price">0</span></p>
+                    </div>
+                </div>
+
+                <div class="booking-details">
+                    <label for="cinema-select-dropdown">Pilih Bioskop:</label>
+                    <select id="cinema-select-dropdown"></select>
+                    <label for="showtime-select-container">Pilih Jam Tayang:</label>
+                    <div id="showtime-select-container" class="options-container"></div>
+                    <label for="seat-selection-container">Pilih Kursi (Maks. 6 kursi):</label>
+                    <div id="seat-layout-container">
+                        <div class="screen-info">LAYAR BIOSKOP</div>
+                        <div id="seat-selection-grid"></div>
+                    </div>
+                    <div id="booking-summary">
+                        <h3>Ringkasan Pemesanan</h3>
+                        <p>Bioskop: <span id="summary-cinema">-</span></p>
+                        <p>Jam Tayang: <span id="summary-showtime">-</span></p>
+                        <p>Kursi: <span id="summary-seats">-</span></p>
+                        <p>Jumlah Tiket: <span id="summary-ticket-count">0</span></p>
+                        <p><strong>Total Harga: Rp <span id="summary-total-price">0</span></strong></p>
+                    </div>
+                    <button id="proceed-to-payment-btn" class="action-button" disabled>Lanjut ke Pembayaran</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="payment-page" class="hidden">
+            <button class="back-button" data-target="booking-page">← Kembali ke Pilih Kursi</button>
+            <h2>Pembayaran</h2>
+            <p>Silakan pindai kode QRIS di bawah ini untuk melakukan pembayaran.</p>
+            <div id="qris-code-container">
+                <img src="PAYMENT.jpg" alt="QRIS Code" />
+            </div>
+            <p>Total Pembayaran: <strong>Rp <span id="payment-total-amount">0</span></strong></p>
+            <button id="confirm-payment-btn" class="action-button">Saya Sudah Bayar</button>
+        </section>
+
+        <section id="confirmation-page" class="hidden">
+            <h2>Pemesanan Berhasil!</h2>
+            <p>Terima kasih telah melakukan pemesanan tiket di Movieday.</p>
+            <div class="ticket-details">
+                <h3>Detail Tiket Anda:</h3>
+                <p>Film: <span id="ticket-movie-title">-</span></p>
+                <p>Bioskop: <span id="ticket-cinema">-</span></p>
+                <p>Jam Tayang: <span id="ticket-showtime">-</span></p>
+                <p>Kursi: <span id="ticket-seats">-</span></p>
+                <p>Total Harga: Rp <span id="ticket-total-price">-</span></p>
+                <div id="ticket-qr-code-container">
+                    <img src="THANKS_CARD.jpg" alt="Ticket QR Code" />
+                </div>
+                <p>Kode Booking: <strong id="ticket-booking-code">...</strong></p>
+                <p>Tunjukkan kode QR atau Kode Booking ini di bioskop.</p>
+            </div>
+            <button id="back-to-home-btn" class="action-button">Kembali ke Halaman Utama</button>
+        </section>
+    </main>
+
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal-btn">×</span>
+            <div id="auth-content-container"></div>
+        </div>
+    </div>
+
+    <template id="login-form-template">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" required />
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" required />
+            <p class="error-message hidden"></p>
+            <button type="submit" class="modal-submit-btn">Login</button>
+            <p class="modal-switch">Belum punya akun? <a href="#" id="show-register-link">Daftar di sini</a></p>
+        </form>
+    </template>
+
+    <template id="register-form-template">
+        <h2>Daftar Akun Baru</h2>
+        <form id="register-form">
+            <label for="register-name">Nama Lengkap:</label>
+            <input type="text" id="register-name" required />
+            <label for="register-email">Email:</label>
+            <input type="email" id="register-email" required />
+            <label for="register-password">Password (min. 6 karakter):</label>
+            <input type="password" id="register-password" required minlength="6" />
+            <p class="error-message hidden"></p>
+            <button type="submit" class="modal-submit-btn">Daftar</button>
+            <p class="modal-switch">Sudah punya akun? <a href="#" id="show-login-link">Login di sini</a></p>
+        </form>
+    </template>
+
+    <div id="trailer-modal" class="modal hidden">
+        <div class="modal-content trailer-modal-content">
+            <span class="close-modal-btn">×</span>
+            <div class="video-container">
+                <iframe id="youtube-trailer-iframe" width="560" height="315" src="" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="movie.js"></script>
+</body>
+
+</html>
