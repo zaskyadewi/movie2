@@ -16,8 +16,13 @@
 <body>
     <header>
         <div class="nav-left">
-            <div id="logo">Movieday</div>
-            <select id="city-select" name="City"></select>
+            <label for="city-select" class="mt-2">Pilih status</label>
+            <select id="city-select" name="City">
+                <option value="" disabled selected>City</option>
+                <option value="Jakarta">Jakarta</option>
+                <option value="Malang">Malang</option>
+                <option value="Bandung">Bandung</option>
+            </select>
         </div>
         <nav class="nav-right" id="user-auth-nav"></nav>
     </header>
@@ -173,6 +178,7 @@
         </div>
     </div>
     <script type="module" src="movie.js"></script>
+    <script type="module" src="booking.js"></script>
 </body>
 
 </html>

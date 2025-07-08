@@ -157,26 +157,73 @@ header {
 .carousel-nav-btn.prev { left: -20px; }
 .carousel-nav-btn.next { right: -20px; }
 
-.movie-card {
-  min-width: 210px; width: 210px;
-  background: transparent; border: none; box-shadow: none;
-  display: flex; flex-direction: column;
+.movie-carousel-container {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
 }
-.movie-poster {
-  width: 100%; padding-top: 140%; background-size: cover;
-  background-position: center; border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-}
-.movie-info { padding: 15px 5px; flex-grow: 1; display: flex; flex-direction: column; }
-.movie-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
 
-.book-now-btn, .upcoming-details-btn {
-    background-color: var(--button-color); color: var(--button-text-color);
-    border: none; padding: 12px; text-align: center; font-weight: bold;
-    cursor: pointer; border-radius: 8px; width: 100%; margin-top: auto;
-    transition: background-color 0.3s; letter-spacing: 0.03em;
+.carousel-nav-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0 10px;
+  color: #333;
+  transition: 0.3s;
 }
-.upcoming-details-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+
+.carousel-nav-btn:hover {
+  color: #007bff;
+}
+
+.movies-grid {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 0;
+  scrollbar-width: none; /* Firefox */
+}
+
+.movies-grid::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.movie-card {
+  flex: 0 0 auto;
+  width: 150px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.movie-thumbnail img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.movie-info {
+  padding: 10px;
+  text-align: center;
+}
+
+.movie-description {
+  font-size: 0.85rem;
+  color: #555;
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* --- Halaman Detail (Upcoming & Booking) --- */
 .back-button {
@@ -250,3 +297,4 @@ header {
 .video-container { position: relative; padding-bottom: 56.25%; height: 0; }
 .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 .trailer-modal-content .close-modal-btn { top: 0; right: -40px; color: white; font-size: 30px; }
+

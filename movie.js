@@ -8,24 +8,60 @@ const supabase = createClient(
 async function simpanMovie() {
     const movieId = document.getElementById("movie_id").value;
     const nama = document.getElementById("nama").value;
-    const total_kursi = parseInt(document.getElementById("total_kursi").value);
+    const total_kursi = document.getElementById("total_kursi").value;
     const start = document.getElementById("start").value;
     const end = document.getElementById("end").value;
     const status = document.getElementById("status").value;
     const Harga = parseInt(document.getElementById("Harga").value);
     const deskripsi = document.getElementById("deskripsi").value;
+    const fileInput = document.getElementById("poster");
+    const file = fileInput.files[0];
 
+    let posterUrl = null;
+
+    if (file) {
+        // 1. Upload gambar ke storage
+        const fileName = `${Date.now()}-${file.name}`;
+        const { data: uploadData, error: uploadError } = await supabase.storage
+            .from("posters")
+            .upload(fileName, file);
+
+        if (uploadError) {
+            console.error(uploadError);
+            alert("Gagal upload gambar");
+            return;
+        }
+
+        // 2. Ambil public URL
+        const { data: publicURL } = supabase
+            .storage
+            .from("posters")
+            .getPublicUrl(fileName);
+
+        posterUrl = publicURL.publicUrl;
+    }
+
+    // 3. Siapkan objek data
+    const movieData = {
+        nama,
+        total_kursi,
+        start,
+        end,
+        status,
+        Harga,
+        deskripsi,
+    };
+
+    if (posterUrl) {
+        movieData.poster = posterUrl;
+    }
+
+    // 4. Insert atau Update
     let result;
-
     if (movieId && movieId !== "") {
-        result = await supabase
-            .from("movie")
-            .update({ nama, total_kursi, start, end, status, Harga, deskripsi })
-            .eq("id", movieId);
+        result = await supabase.from("movie").update(movieData).eq("id", movieId);
     } else {
-        result = await supabase
-            .from("movie")
-            .insert([{ nama, total_kursi, start, end, status, Harga, deskripsi }]);
+        result = await supabase.from("movie").insert([movieData]);
     }
 
     if (result.error) {
@@ -35,8 +71,10 @@ async function simpanMovie() {
         alert(movieId ? "Data berhasil diperbarui" : "Data berhasil ditambahkan");
         resetForm();
         loadMovies();
+        loadMovieGallery(); // jika perlu refresh gallery
     }
 }
+
 
 
 async function loadMovies() {
@@ -118,8 +156,8 @@ function resetForm() {
     document.getElementById("status").value = "";
     document.getElementById("Harga").value = "";
     document.getElementById("deskripsi").value = "";
+    document.getElementById("poster").value = "";
 
-    // Balikin tombol jadi "Simpan"
     const tombol = document.querySelector("button[onclick='simpanMovie()']");
     tombol.textContent = "Simpan";
     tombol.classList.remove("btn-warning");
@@ -137,16 +175,18 @@ async function loadMovieGallery() {
     const nowShowingContainer = document.getElementById("now-showing-grid");
     const upcomingContainer = document.getElementById("upcoming-grid");
 
-    // Kosongkan dulu kontainer
     nowShowingContainer.innerHTML = "";
     upcomingContainer.innerHTML = "";
 
     data.forEach(movie => {
+        // Gunakan langsung link lengkap dari kolom "poster"
+        const posterUrl = movie.poster || "https://via.placeholder.com/150x220?text=No+Poster";
+
         const card = document.createElement("div");
         card.className = "movie-card";
         card.innerHTML = `
             <div class="movie-thumbnail">
-                <img src="${movie.poster || 'https://via.placeholder.com/150x220?text=No+Poster'}" alt="${movie.nama}">
+                <img src="${posterUrl}" width="200px" alt="${movie.nama}">
             </div>
             <div class="movie-info">
                 <h4>${movie.nama}</h4>
@@ -162,6 +202,8 @@ async function loadMovieGallery() {
         }
     });
 }
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
     loadMovieGallery();
